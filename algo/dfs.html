@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><title>MAXimal :: algo :: Поиск в глубину и его приложения</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta name="author" lang="ru" content="e-maxx" /><meta name="description" content="Алгоритмы, олимпиадное программирование, математика" /><meta name="keywords" content="алгоритмы программирование" /><meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc" /><link rel="stylesheet" type="text/css" href="../data/style.css"><script type="text/javascript" src="../data/jquery.js"></script><script type="text/javascript" src="../data/page-contents.js"></script><link rel="stylesheet" type="text/css" href="../geshi/geshi.css"><!--[if IE]><style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head><body><table class=main cellpadding=0 cellspacing=0><tr><td class=title colspan=2><p>MAXimal</p></td></tr><tr><td class=menu><ul><li><a href="../index.php.html" >home</a></li><li><a href="index.html" class=current>algo</a></li><li><a href="../bookz/index.html" >bookz</a></li><li><a href="../forum/index.html" >forum</a></li><li><a href="../about.php.html" >about</a></li></ul></td><td class=content><p class=algoinfo>добавлено: 10 Jun 2008 19:19<br>редактировано: 10 Jun 2008 19:21</p><div id="contents-table"><p id="contents-table-title">Содержание <a href="dfs.html#" id="contents-hide">[скрыть]</a><a href="dfs.html#" id="contents-show" style="display:none">[показать]</a></p><div style="display:none"></div></div><h1>Поиск в глубину</h1>
+
+<p>Это один из основных алгоритмов на графах.</p>
+<p>В результате поиска в глубину находится лексикографически первый путь в графе.</p>
+<p>Алгоритм работает за <b>O (N+M)</b>.</p>
+<h2>Применения алгоритма</h2>
+<ul>
+<li>Поиск любого пути в графе.</li>
+<li>Поиск лексикографически первого пути в графе.</li>
+<li>Проверка, является ли одна вершина дерева предком другой:<br>В начале и конце итерации поиска в глубину будет запоминать "время" захода и выхода в каждой вершине. Теперь за O(1) можно найти ответ: вершина i является предком вершины j тогда и только тогда, когда start<sub>i</sub> &lt; start<sub>j</sub> и end<sub>i</sub> > end<sub>j</sub>.</li>
+<li><a href="lca.html">Задача LCA (наименьший общий предок)</a>.</li>
+<li><a href="topological_sort.html">Топологическая сортировка</a>:<br>Запускаем серию поисков в глубину, чтобы обойти все вершины графа. Отсортируем вершины по времени выхода по убыванию - это и будет ответом.</li>
+<li><a href="finding_cycle.html">Проверка графа на ацикличность и нахождение цикла</a></li>
+<li><a href="strong_connected_components.html">Поиск компонент сильной связности</a>:<br>Сначала делаем топологическую сортировку, потом транспонируем граф и проводим снова серию поисков в глубину в порядке, определяемом топологической сортировкой. Каждое дерево поиска - сильносвязная компонента.</li>
+<li><a href="bridge_searching.html">Поиск мостов</a>:<br>Сначала превращаем граф в ориентированный, делая серию поисков в глубину, и ориентируя каждое ребро так, как мы пытались по нему пройти. Затем находим сильносвязные компоненты. Мостами являются те рёбра, концы которых принадлежат разным сильносвязным компонентам.</li>
+</ul>
+<h2>Реализация</h2>
+<pre>vector &lt; vector&lt;int> > g; // граф
+int n; // число вершин
+
+vector&lt;int> color; // цвет вершины (0, 1, или 2)
+
+vector&lt;int> time_in, time_out; // "времена" захода и выхода из вершины
+int dfs_timer = 0; // "таймер" для определения времён
+
+void dfs (int v) {
+	time_in[v] = dfs_timer++;
+	color[v] = 1;
+	for (vector&lt;int>::iterator i=g[v].begin(); i!=g[v].end(); ++i)
+		if (color[*i] == 0)
+			dfs (*i);
+	color[v] = 2;
+	time_out[v] = dfs_timer++;
+}</pre>
+<p>Это наиболее общий код. Во многих случаях времена захода и выхода из вершины не важны, так же как и не важны цвета вершин (но тогда надо будет ввести аналогичный по смыслу булевский массив used). Вот наиболее простая реализация:</p>
+<pre>vector &lt; vector&lt;int> > g; // граф
+int n; // число вершин
+
+vector&lt;char> used;
+
+void dfs (int v) {
+	used[v] = true;
+	for (vector&lt;int>::iterator i=g[v].begin(); i!=g[v].end(); ++i)
+		if (!used[*i])
+			dfs (*i);
+}</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><hr><p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script></td></tr></table></body></html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><title>MAXimal :: algo :: Алгоритм Рабина-Карпа поиска подстроки в строке</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta name="author" lang="ru" content="e-maxx" /><meta name="description" content="Алгоритмы, олимпиадное программирование, математика" /><meta name="keywords" content="алгоритмы программирование" /><meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc" /><link rel="stylesheet" type="text/css" href="../data/style.css"><script type="text/javascript" src="../data/jquery.js"></script><script type="text/javascript" src="../data/page-contents.js"></script><link rel="stylesheet" type="text/css" href="../geshi/geshi.css"><!--[if IE]><style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head><body><table class=main cellpadding=0 cellspacing=0><tr><td class=title colspan=2><p>MAXimal</p></td></tr><tr><td class=menu><ul><li><a href="../index.php.html" >home</a></li><li><a href="index.html" class=current>algo</a></li><li><a href="../bookz/index.html" >bookz</a></li><li><a href="../forum/index.html" >forum</a></li><li><a href="../about.php.html" >about</a></li></ul></td><td class=content><p class=algoinfo>добавлено: 11 Jun 2008 10:41<br>редактировано: 11 Jun 2008 10:42</p><div id="contents-table"><p id="contents-table-title">Содержание <a href="rabin_karp.html#" id="contents-hide">[скрыть]</a><a href="rabin_karp.html#" id="contents-show" style="display:none">[показать]</a></p><div style="display:none"></div></div><h1>Алгоритм Рабина-Карпа поиска подстроки в строке за O (N)</h1>
+
+<p>Этот алгоритм базируется на хэшировании строк, и тех, кто не знаком с темой, отсылаю к <a href="string_hashes.html">"Алгоритмам хэширования в задачах на строки"</a>.</p>
+
+<p>&nbsp;</p>
+
+<p>Авторы алгоритма - Рабин (Rabin) и Карп (Karp), 1987 год.</p>
+<p>Дана строка S и текст T, состоящие из маленьких латинских букв. Требуется найти все вхождения строки S в текст T за время O (|S| + |T|).</p>
+<p>Алгоритм. Посчитаем хэш для строки S. Посчитаем значения хэшей для всех префиксов строки T. Теперь переберём все подстроки T длины |S| и каждую сравним с |S| за время O (1).</p>
+<h2>Реализация</h2>
+<pre>string s, t; // входные данные
+
+// считаем все степени p
+const int p = 31;
+vector&lt;long long> p_pow (max (s.length(), t.length()));
+p_pow[0] = 1;
+for (size_t i=1; i&lt;p_pow.size(); ++i)
+	p_pow[i] = p_pow[i-1] * p;
+
+// считаем хэши от всех префиксов строки T
+vector&lt;long long> h (t.length());
+for (size_t i=0; i&lt;t.length(); ++i)
+{
+	h[i] = (t[i] - 'a' + 1) * p_pow[i];
+	if (i)  h[i] += h[i-1];
+}
+
+// считаем хэш от строки S
+long long h_s = 0;
+for (size_t i=0; i&lt;s.length(); ++i)
+	h_s += (s[i] - 'a' + 1) * p_pow[i];
+
+// перебираем все подстроки T длины |S| и сравниваем их
+for (size_t i = 0; i + s.length() - 1 &lt; t.length(); ++i)
+{
+	long long cur_h = h[i+s.length()-1];
+	if (i)  cur_h -= h[i-1];
+	// приводим хэши к одной степени и сравниваем
+	if (cur_h == h_s * p_pow[i])
+		cout &lt;&lt; i &lt;&lt; ' ';
+}</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><hr><p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script></td></tr></table></body></html>

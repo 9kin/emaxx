@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><title>MAXimal :: algo :: Проверка графа на ацикличность и нахождение цикла</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta name="author" lang="ru" content="e-maxx" /><meta name="description" content="Алгоритмы, олимпиадное программирование, математика" /><meta name="keywords" content="алгоритмы программирование" /><meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc" /><link rel="stylesheet" type="text/css" href="../data/style.css"><script type="text/javascript" src="../data/jquery.js"></script><script type="text/javascript" src="../data/page-contents.js"></script><link rel="stylesheet" type="text/css" href="../geshi/geshi.css"><!--[if IE]><style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head><body><table class=main cellpadding=0 cellspacing=0><tr><td class=title colspan=2><p>MAXimal</p></td></tr><tr><td class=menu><ul><li><a href="../index.php.html" >home</a></li><li><a href="index.html" class=current>algo</a></li><li><a href="../bookz/index.html" >bookz</a></li><li><a href="../forum/index.html" >forum</a></li><li><a href="../about.php.html" >about</a></li></ul></td><td class=content><p class=algoinfo>добавлено: 10 Jun 2008 22:15<br>редактировано: 10 Jun 2008 22:16</p><div id="contents-table"><p id="contents-table-title">Содержание <a href="finding_cycle.html#" id="contents-hide">[скрыть]</a><a href="finding_cycle.html#" id="contents-show" style="display:none">[показать]</a></p><div style="display:none"></div></div><h1>Проверка графа на ацикличность и нахождение цикла</h1>
+
+<p>Пусть дан ориентированный или неориентированный граф без петель и кратных рёбер. Требуется проверить, является ли он ациклическим, а если не является, то найти любой цикл.</p>
+<p>Решим эту задачу с помощью <a href="dfs.html">поиска в глубину</a> за O (M).</p>
+<h2>Алгоритм</h2>
+<p>Произведём серию поисков в глубину в графе. Т.е. из каждой вершины, в которую мы ещё ни разу не приходили, запустим поиск в глубину, который при входе в вершину будет красить её в серый цвет, а при выходе - в чёрный. И если поиск в глубину пытается пойти в серую вершину, то это означает, что мы нашли цикл (если граф неориентированный, то случаи, когда поиск в глубину из какой-то вершины пытается пойти в предка, не считаются).</p>
+<p>Сам цикл можно восстановить проходом по массиву предков.</p>
+<h2>Реализация</h2>
+<p>Здесь приведена реализация для случая ориентированного графа.</p>
+<pre>int n;
+vector &lt; vector&lt;int> > g;
+vector&lt;char> cl;
+vector&lt;int> p;
+int cycle_st, cycle_end;
+
+bool dfs (int v) {
+	cl[v] = 1;
+	for (size_t i=0; i&lt;g[v].size(); ++i) {
+		int to = g[v][i];
+		if (cl[to] == 0) {
+			p[to] = v;
+			if (dfs (to))  return true;
+		}
+		else if (cl[to] == 1) {
+			cycle_end = v;
+			cycle_st = to;
+			return true;
+		}
+	}
+	cl[v] = 2;
+	return false;
+}
+
+int main() {
+	... чтение графа ...
+
+	p.assign (n, -1);
+	cl.assign (n, 0);
+	cycle_st = -1;
+	for (int i=0; i&lt;n; ++i)
+		if (dfs (i))
+			break;
+
+	if (cycle_st == -1)
+		puts ("Acyclic");
+	else {
+		puts ("Cyclic");
+		vector&lt;int> cycle;
+		cycle.push_back (cycle_st);
+		for (int v=cycle_end; v!=cycle_st; v=p[v])
+			cycle.push_back (v);
+		cycle.push_back (cycle_st);
+		reverse (cycle.begin(), cycle.end());
+		for (size_t i=0; i&lt;cycle.size(); ++i)
+			printf ("%d ", cycle[i]+1);
+	}
+}</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><hr><p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script></td></tr></table></body></html>

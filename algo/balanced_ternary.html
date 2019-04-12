@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head><title>MAXimal :: algo :: Троичная сбалансированная система счисления</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <meta name="author" lang="ru" content="e-maxx"/>
+    <meta name="description" content="Алгоритмы, олимпиадное программирование, математика"/>
+    <meta name="keywords" content="алгоритмы программирование"/>
+    <meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc"/>
+    <link rel="stylesheet" type="text/css" href="../data/style.css">
+    <script type="text/javascript" src="../data/jquery.js"></script>
+    <script type="text/javascript" src="../data/page-contents.js"></script>
+    <link rel="stylesheet" type="text/css" href="../geshi/geshi.css">
+    <!--[if IE]>
+    <style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head>
+<body>
+<table class=main cellpadding=0 cellspacing=0>
+    <tr>
+        <td class=title colspan=2><p>MAXimal</p></td>
+    </tr>
+    <tr>
+        <td class=menu>
+            <ul>
+                <li><a href="../index.php.html">home</a></li>
+                <li><a href="index.html" class=current>algo</a></li>
+                <li><a href="../bookz/index.html">bookz</a></li>
+                <li><a href="../forum/index.html">forum</a></li>
+                <li><a href="../about.php.html">about</a></li>
+            </ul>
+        </td>
+        <td class=content><p class=algoinfo>добавлено: 11 Jul 2008 19:33<br>редактировано: 8 Sep 2010 17:16</p>
+            <div id="contents-table"><p id="contents-table-title">Содержание <a href="balanced_ternary.html#"
+                                                                                id="contents-hide">[скрыть]</a><a
+                    href="balanced_ternary.html#" id="contents-show" style="display:none">[показать]</a></p>
+                <div style="display:none"></div>
+            </div>
+            <h1> Троичная сбалансированная система счисления </h1>
+            <p>Троичная сбалансированная система счисления &mdash; это нестандартная позиционная система счисления.
+                Основание системы равно <img class=tex src="../tex2png/cache/0e96f2a3dff7da2f31d78c5306207a14.png"
+                                             alt="3">, однако она отличается от обычной троичной системы тем, что
+                цифрами являются <img class=tex src="../tex2png/cache/4b25f348e18e0c82ce08ef748a7f93cb.png"
+                                      alt="-1, 0, 1">. Поскольку использовать <img class=tex
+                                                                                   src="../tex2png/cache/fc5f9135f75a6da19325dc3822484bbd.png"
+                                                                                   alt="-1"> для одной цифры очень
+                неудобно, то обычно принимают какое-то специальное обозначение. Условимся здесь обозначать минус единицу
+                буквой <img class=tex src="../tex2png/cache/bb3cdafd77b2b4bf060c2c08de238c72.png" alt="z">.
+            <p>Например, число <img class=tex src="../tex2png/cache/ffd5c7a480888cf433d3b57d36bd7c52.png" alt="5"> в
+                троичной сбалансированной системе записывается как <img class=tex
+                                                                        src="../tex2png/cache/b68a9910646b32b24907bb7113872e51.png"
+                                                                        alt="1zz">, а число <img class=tex
+                                                                                                 src="../tex2png/cache/d893755bc6258ca43ca95ea71b5b446e.png"
+                                                                                                 alt="-5"> &mdash; как
+                <img class=tex src="../tex2png/cache/e2be011409f0d273c7c153985d04330d.png" alt="z11">. Троичная
+                сбалансированная система счисления позволяет записывать отрицательные числа без записи отдельного знака
+                "минус". Троичная сбалансированная система позволяет дробные числа (например, <img class=tex
+                                                                                                   src="../tex2png/cache/036395897148e7b8973c0a214393d8c2.png"
+                                                                                                   alt="1/3">
+                записывается как <img class=tex src="../tex2png/cache/c19e50e742ddeb6982c1c46ba80f84ae.png" alt="0.1">).
+            <p>
+            <h2 style="padding-top:40px;"> Алгоритм перевода </h2>
+            <p>Научимся переводить числа в троичную сбалансированную систему.
+            <p>Для этого надо сначала перевести число в троичную систему.
+            <p>Ясно, что теперь нам надо избавиться от цифр <img class=tex
+                                                                 src="../tex2png/cache/1f68ec6d6ed94148fc6fb5efafc8a688.png"
+                                                                 alt="2">, для чего заметим, что <img class=tex
+                                                                                                      src="../tex2png/cache/63206817663ac3a266d2bbb2433c6fc9.png"
+                                                                                                      alt="2 = 3 - 1">,
+                т.е. мы можем заменить двойку в текущем разряде на <img class=tex
+                                                                        src="../tex2png/cache/fc5f9135f75a6da19325dc3822484bbd.png"
+                                                                        alt="-1">, при этом увеличив следующий (т.е.
+                слева от него в естественной записи) разряд на <img class=tex
+                                                                    src="../tex2png/cache/1737ac55fdbc871d8c7d14245b749ccd.png"
+                                                                    alt="1">. Если мы будем двигаться по записи справа
+                налево и выполнять вышеописанную операцию (при этом в каких-то разрядах может происходить переполнение
+                больше <img class=tex src="../tex2png/cache/0e96f2a3dff7da2f31d78c5306207a14.png" alt="3">, в таком
+                случае, естественно, "сбрасываем" лишние тройки в старший разряд), то придём к троичной сбалансированной
+                записи. Как нетрудно убедиться, то же самое правило верно и для дробных чисел.
+            <p>Более изящно вышеописанную процедуру можно описать так. Мы берём число в троичной системе счисления,
+                прибавляем к нему бесконечное число <img class=tex
+                                                         src="../tex2png/cache/ed242e9bfdba120fbaeb3ee571612e88.png"
+                                                         alt="\ldots 11111.11111 \ldots">, а затем от каждого разряда
+                результата отнимаем единицу (уже безо всяких переносов).
+            <p>Зная теперь алгоритм перевода из обычной троичной системы в сбалансированную, легко можно реализовать
+                операции сложения, вычитания и деления &mdash; просто сводя их к соответствующим операциям над троичными
+                несбалансированными числами.
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <hr>
+            <p>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+            </script>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

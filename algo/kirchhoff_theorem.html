@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><title>MAXimal :: algo :: Матричная теорема Кирхгофа. Нахождение количества остовных деревьев</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta name="author" lang="ru" content="e-maxx" /><meta name="description" content="Алгоритмы, олимпиадное программирование, математика" /><meta name="keywords" content="алгоритмы программирование" /><meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc" /><link rel="stylesheet" type="text/css" href="../data/style.css"><script type="text/javascript" src="../data/jquery.js"></script><script type="text/javascript" src="../data/page-contents.js"></script><link rel="stylesheet" type="text/css" href="../geshi/geshi.css"><!--[if IE]><style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head><body><table class=main cellpadding=0 cellspacing=0><tr><td class=title colspan=2><p>MAXimal</p></td></tr><tr><td class=menu><ul><li><a href="../index.php.html" >home</a></li><li><a href="index.html" class=current>algo</a></li><li><a href="../bookz/index.html" >bookz</a></li><li><a href="../forum/index.html" >forum</a></li><li><a href="../about.php.html" >about</a></li></ul></td><td class=content><p class=algoinfo>добавлено: 5 Nov 2008 20:17<br>редактировано: 23 Aug 2010 22:24</p><div id="contents-table"><p id="contents-table-title">Содержание <a href="kirchhoff_theorem.html#" id="contents-hide">[скрыть]</a><a href="kirchhoff_theorem.html#" id="contents-show" style="display:none">[показать]</a></p><div style="display:none"></div></div><h1>Матричная теорема Кирхгофа. Нахождение количества остовных деревьев</h1>
+<p>Задан связный неориентированный граф своей матрицей смежности. Кратные рёбра в графе допускаются. Требуется посчитать количество различных остовных деревьев этого графа.</p>
+<p>Приведённая ниже формула принадлежит Кирхгофу (Kirchhoff), который доказал её в 1847 г.</p>
+<h2>Матричная теорема Кирхгофа</h2>
+<p>Возьмём матрицу смежности графа G, заменим каждый элемент этой матрицы на противоположный, а на диагонале вместо элемента A<sub>i,i</sub> поставим степень вершины i (если имеются кратные рёбра, то в степени вершины они учитываются со своей кратностью). Тогда, согласно матричной теореме Кирхгофа, все алгебраические дополнения этой матрицы равны между собой, и равны количеству остовных деревьев этого графа. Например, можно удалить последнюю строку и последний столбец этой матрицы, и модуль её определителя будет равен искомому количеству.</p>
+<p>Определитель матрицы можно найти за O (N<sup>3</sup>) с помощью <a href="determinant_gauss.html">метода Гаусса</a> или <a href="determinant_crout.html">метода Краута</a>.</p>
+<p>Доказательство этой теоремы достаточно сложно и здесь не приводится (см., например, Приезжев В.Б. "Задача о димерах и теорема Кирхгофа").</p>
+<h2>Связь с законами Кирхгофа в электрической цепи</h2>
+<p>Между матричной теоремой Кирхгофа и законами Кирхгофа для электрической цепи имеется удивительная связь.</p>
+<p>Можно показать (как следствие из закона Ома и первого закона Кирхгофа), что сопротивление R<sub>ij</sub> между точками i и j электрической цепи равно:</p>
+<pre>R<sub>ij</sub> = |T<sup>(i,j)</sup>| / |T<sup>j</sup>|</pre>
+<p>где матрица T получена из матрицы A <i>обратных</i> сопротивлений проводников (A<sub>ij</sub> - обратное число к сопротивлению проводника между точками i и j) преобразованием, описанным в матричной теореме Кирхгофа, а обозначение T<sup>(i)</sup> обозначает вычёркивание строки и столбца с номером i, а T<sup>(i,j)</sup> - вычёркивание двух строк и столбцов i и j.</p>
+<p>Теорема Кирхгофа придаёт этой формуле геометрический смысл.</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><hr><p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script></td></tr></table></body></html>

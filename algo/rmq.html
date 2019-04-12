@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html><head><title>MAXimal :: algo :: Задача RMQ (Range Minimum Query - минимум на отрезке)</title><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"><meta name="author" lang="ru" content="e-maxx" /><meta name="description" content="Алгоритмы, олимпиадное программирование, математика" /><meta name="keywords" content="алгоритмы программирование" /><meta name="google-site-verification" content="Pnjjj2XuxB0CTiqgDDvkp79bfSeDQ8Vw57iNeDJZkSc" /><link rel="stylesheet" type="text/css" href="../data/style.css"><script type="text/javascript" src="../data/jquery.js"></script><script type="text/javascript" src="../data/page-contents.js"></script><link rel="stylesheet" type="text/css" href="../geshi/geshi.css"><!--[if IE]><style>.menu a, .menu a:hover { width: 100%; }</style><![endif]--></head><body><table class=main cellpadding=0 cellspacing=0><tr><td class=title colspan=2><p>MAXimal</p></td></tr><tr><td class=menu><ul><li><a href="../index.php.html" >home</a></li><li><a href="index.html" class=current>algo</a></li><li><a href="../bookz/index.html" >bookz</a></li><li><a href="../forum/index.html" >forum</a></li><li><a href="../about.php.html" >about</a></li></ul></td><td class=content><p class=algoinfo>добавлено: 11 Jun 2008 11:02<br>редактировано: 13 Jun 2008 1:37</p><div id="contents-table"><p id="contents-table-title">Содержание <a href="rmq.html#" id="contents-hide">[скрыть]</a><a href="rmq.html#" id="contents-show" style="display:none">[показать]</a></p><div style="display:none"></div></div><h1>Задача RMQ (Range Minimum Query - минимум на отрезке)</h1>
+
+<p>Дан массив A[1..N]. Поступают запросы вида (L, R), на каждый запрос требуется найти минимум в массиве A, начиная с позиции L и заканчивая позицией R.</p>
+<h2>Приложения</h2>
+<p>Помимо непосредственного применения в самых разных задачах, можно отметить следующие:</p>
+<ul>
+<li><a href="lca.html">Задача LCA (наименьший общий предок)</a></li>
+</ul>
+<h2>Решение</h2>
+<p>Задача RMQ решается с помощью структур данных.</p>
+<p>Из описанных на сайте структур данных можно выбрать:</p>
+<ul>
+<li><a href="sqrt_decomposition.html"><b>Sqrt-декомпозиция</b></a> - отвечает на запрос за O (sqrt (N)), препроцессинг за O (N).<br>Преимущество в том, что это очень простая структура данных. Недостаток - асимптотика.</li>
+<li><a href="segment_tree.html"><b>Дерево отрезков</b></a> - отвечает на запрос за O (log N), препроцессинг за O (N).<br>Преимущество - хорошая асимптотика. Недостаток - бОльший объём кода по сравнению с другими структурами данных.</li>
+<li><a href="fenwick_tree.html"><b>Дерево Фенвика</b></a> - отвечает на запрос за O (log N), препроцессинг за O (N log N)<br>Преимущество - очень быстро пишется и работает тоже очень быстро. Но значительный недостаток - дерево Фенвика может отвечать только на запросы с L = 1, что для многих приложений неприменимо.</li>
+</ul>
+<p>Примечание. "Препроцессинг" - это предварительная обработка массива A, фактически это построение структуры данных для данного массива.</p>
+<p>Теперь предположим, что массив A <b>может изменяться</b> в процессе работы (т.е. также будут поступать запросы об изменении значения в некотором отрезке [L;R]). Тогда полученную задачу можно решить с помощью <a href="sqrt_decomposition.html"><b>Sqrt-декомпозиции</b></a> и <a href="segment_tree.html"><b>Дерева отрезков</b></a>.</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><hr><p>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'e-maxx';
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script></td></tr></table></body></html>
